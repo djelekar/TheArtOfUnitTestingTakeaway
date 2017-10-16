@@ -9,6 +9,7 @@ namespace TheArtOfUnitTesting
     public class Account
     {
         private int _balance;
+        private readonly int _limit = int.MaxValue;
 
         public Account()
         {
@@ -20,9 +21,18 @@ namespace TheArtOfUnitTesting
             _balance = balance;
         }
 
+        public Account(int balance, int limit)
+        {
+            _balance = balance;
+            _limit = limit;
+        }
+
         public int Deposit(int amount)
         {
-            return _balance += amount;
+            if (_balance + amount <= _limit)
+                return _balance += amount;
+
+            return _balance;
         }
     }
 }
