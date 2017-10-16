@@ -69,6 +69,22 @@ namespace TheArtOfUnitTesting_Test
 
             Assert.That(actualBalance, Is.EqualTo(expectedBalance));
         }
+
+        [TestCase(100, 400, 200, 300)]
+        [TestCase(200, 400, 300, 200)]
+        public void InitialBalance_Deposit_NewBalanceCorrect(int initialBalance, int limit, int deposit, int expectedBalance)
+        {
+            var account = new AccountBuilder()
+                .WithInitialBalance(initialBalance)
+                .WithLimit(limit)
+                .Build();
+
+            Assert.That(initialBalance, Is.EqualTo(account.Balance));
+
+            var actualBalance = account.Deposit(deposit);
+
+            Assert.That(actualBalance, Is.EqualTo(expectedBalance));
+        }
     }
 
     internal class AccountBuilder
