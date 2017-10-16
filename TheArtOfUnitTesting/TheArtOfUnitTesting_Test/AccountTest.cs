@@ -37,5 +37,22 @@ namespace TheArtOfUnitTesting_Test
 
             Assert.AreEqual(expectedBalance, actualBalance);
         }
+
+        private static Account CreateAccount()
+        {
+            return new Account();
+        }
+
+        // even better
+        [TestCase(100, 200, 300)]
+        [TestCase(200, 300, 500)]
+        public void InitialBalance_Deposit_NewBalanceCorrect_EvenBetter(int initialBalance, int deposit, int expectedBalance)
+        {
+            var account = CreateAccount();
+
+            var actualBalance = account.Deposit(deposit);
+
+            Assert.AreEqual(expectedBalance, actualBalance);
+        }
     }
 }
