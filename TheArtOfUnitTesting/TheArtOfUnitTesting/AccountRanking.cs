@@ -4,7 +4,7 @@ namespace TheArtOfUnitTesting
 {
     public class AccountRanking : IAccountRanking
     {
-        public double CalculateRanking()
+        public double CalculateRanking(Account account)
         {
             var accountRankingClient = new WebClient();
             //return accountRankingClient.CalculateRanking();

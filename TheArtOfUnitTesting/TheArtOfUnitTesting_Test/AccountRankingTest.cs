@@ -7,13 +7,23 @@ namespace TheArtOfUnitTesting_Test
     public class AccountRankingTest
     {
         [TestCase(100)]
-        public void TestMethod1(double expectedRanking)
+        public void Account_CalculateRanking_Correct(double expectedRanking)
         {
-            IAccountRanking accountRanking = new AccountRanking();
+            var account = new Account();
 
-            var actualRanking = accountRanking.CalculateRanking();
+            IAccountRanking accountRanking = new AlwaysMaximumFakeAccountRanking();
+
+            var actualRanking = accountRanking.CalculateRanking(account);
 
             Assert.That(actualRanking, Is.EqualTo(expectedRanking));
+        }
+    }
+
+    internal class AlwaysMaximumFakeAccountRanking : IAccountRanking
+    {
+        public double CalculateRanking(Account account)
+        {
+            return 100;
         }
     }
 }

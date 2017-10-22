@@ -2,6 +2,6 @@
 {
     public interface IAccountRanking
     {
-        double CalculateRanking();
+        double CalculateRanking(Account account);
     }
 }
