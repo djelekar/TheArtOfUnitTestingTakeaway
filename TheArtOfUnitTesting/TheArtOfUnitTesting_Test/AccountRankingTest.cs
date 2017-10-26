@@ -7,12 +7,36 @@ namespace TheArtOfUnitTesting_Test
     public class AccountRankingTest
     {
         [Test]
-        public void AccountWithPositiveHistory_CalculateRanking_RankingIsPositive()
+        public void AccountWithPositiveHistory_CalculateRanking_RankingIsPositive_ParameterInjection()
         {
             var accountRanking = new AccountRanking();
             var fakeAccount = new AlwaysPositiveHistoryFakeAccount();
 
             var actualRanking = accountRanking.CalculateRanking(fakeAccount);
+
+            Assert.That(actualRanking, Is.GreaterThan(0));
+        }
+
+        [Test]
+        public void AccountWithPositiveHistory_CalculateRanking_RankingIsPositive_ConstructorInjection()
+        {
+            var fakeAccount = new AlwaysPositiveHistoryFakeAccount();
+            var accountRanking = new AccountRanking(fakeAccount);
+
+            var actualRanking = accountRanking.CalculateRanking();
+
+            Assert.That(actualRanking, Is.GreaterThan(0));
+        }
+
+        [Test]
+        public void AccountWithPositiveHistory_CalculateRanking_RankingIsPositive_SetterInjection()
+        {
+            var fakeAccount = new AlwaysPositiveHistoryFakeAccount();
+            var accountRanking = new AccountRanking();
+
+            accountRanking.Account = fakeAccount;
+
+            var actualRanking = accountRanking.CalculateRanking();
 
             Assert.That(actualRanking, Is.GreaterThan(0));
         }
