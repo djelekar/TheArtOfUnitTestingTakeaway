@@ -1,4 +1,7 @@
-﻿namespace TheArtOfUnitTesting
+﻿using System.Linq;
+using Newtonsoft.Json.Linq;
+
+namespace TheArtOfUnitTesting
 {
     public class AccountRanking
     {
@@ -32,9 +35,13 @@
             return ranking;
         }
 
-        private double DoSomeMath(string history)
+        private static double DoSomeMath(string history)
         {
-            throw new System.NotImplementedException();
+            var array = JArray.Parse(history);
+
+            var ranking = array.Average(jToken => (int)(JValue)jToken);
+
+            return ranking;
         }
     }
 }

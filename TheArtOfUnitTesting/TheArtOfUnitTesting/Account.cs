@@ -36,7 +36,7 @@
 
         public string ImportAccountHistory()
         {
-            var history = System.IO.File.ReadAllLines(@"c:\accountHistoryStore.txt");
+            var history = System.IO.File.ReadAllLines(@"c:\accountHistoryStore.json");
 
             return history[_myId];
         }
