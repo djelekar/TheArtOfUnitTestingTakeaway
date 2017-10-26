@@ -1,14 +1,40 @@
-﻿using System.Net;
-
-namespace TheArtOfUnitTesting
+﻿namespace TheArtOfUnitTesting
 {
-    public class AccountRanking : IAccountRanking
+    public class AccountRanking
     {
-        public double CalculateRanking(Account account)
+        public IAccount Account { get; set; }
+
+        public AccountRanking()
         {
-            var accountRankingClient = new WebClient();
-            //return accountRankingClient.CalculateRanking();
-            return 0;
+            
+        }
+
+        public AccountRanking(IAccount account)
+        {
+            Account = account;
+        }
+
+        public double CalculateRanking(IAccount account)
+        {
+            var history = account.ImportAccountHistory();
+
+            var ranking = DoSomeMath(history);
+
+            return ranking;
+        }
+
+        public double CalculateRanking()
+        {
+            var history = Account.ImportAccountHistory();
+
+            var ranking = DoSomeMath(history);
+
+            return ranking;
+        }
+
+        private double DoSomeMath(string history)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

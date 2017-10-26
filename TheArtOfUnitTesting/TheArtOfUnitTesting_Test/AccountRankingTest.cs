@@ -6,24 +6,23 @@ namespace TheArtOfUnitTesting_Test
     [TestFixture]
     public class AccountRankingTest
     {
-        [TestCase(100)]
-        public void Account_CalculateRanking_Correct(double expectedRanking)
+        [Test]
+        public void AccountWithPositiveHistory_CalculateRanking_RankingIsPositive()
         {
-            var account = new Account();
+            var accountRanking = new AccountRanking();
+            var fakeAccount = new AlwaysPositiveHistoryFakeAccount();
 
-            IAccountRanking accountRanking = new AlwaysMaximumFakeAccountRanking();
+            var actualRanking = accountRanking.CalculateRanking(fakeAccount);
 
-            var actualRanking = accountRanking.CalculateRanking(account);
-
-            Assert.That(actualRanking, Is.EqualTo(expectedRanking));
+            Assert.That(actualRanking, Is.GreaterThan(0));
         }
-    }
 
-    internal class AlwaysMaximumFakeAccountRanking : IAccountRanking
-    {
-        public double CalculateRanking(Account account)
+        internal class AlwaysPositiveHistoryFakeAccount : IAccount
         {
-            return 100;
+            public string ImportAccountHistory()
+            {
+                return "[0, 100, 500, 300, 800, 500, 700, 1000]";
+            }
         }
     }
 }

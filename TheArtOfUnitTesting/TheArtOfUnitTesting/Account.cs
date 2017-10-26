@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TheArtOfUnitTesting
+﻿namespace TheArtOfUnitTesting
 {
     public class Account
     {
+        public static int Id;
+
         public int Balance { get; private set; }
-        public int Limit { get; private set; }  = int.MaxValue;
+        public int Limit { get; }  = int.MaxValue;
+
+        private readonly int _myId;
 
         public Account()
         {
+            _myId = Id++;
             Balance = 0;
         }
 
@@ -33,6 +32,13 @@ namespace TheArtOfUnitTesting
                 return Balance += amount;
 
             return Balance;
+        }
+
+        public string ImportAccountHistory()
+        {
+            var history = System.IO.File.ReadAllLines(@"c:\accountHistoryStore.txt");
+
+            return history[_myId];
         }
     }
 }
