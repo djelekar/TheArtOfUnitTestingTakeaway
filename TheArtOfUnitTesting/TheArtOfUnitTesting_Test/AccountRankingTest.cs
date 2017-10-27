@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using NUnit.Framework;
 using TheArtOfUnitTesting;
 
 namespace TheArtOfUnitTesting_Test
@@ -35,6 +36,19 @@ namespace TheArtOfUnitTesting_Test
             var accountRanking = new AccountRanking();
 
             accountRanking.Account = fakeAccount;
+
+            var actualRanking = accountRanking.CalculateRanking();
+
+            Assert.That(actualRanking, Is.GreaterThan(0));
+        }
+
+        [Test]
+        public void AccountWithPositiveHistory_CalculateRanking_RankingIsPositive_Moq()
+        {
+            var fakeAccount = new Mock<IAccount>();
+            fakeAccount.Setup(x => x.ImportAccountHistory()).Returns("[0, 100, 500, 300, 800, 500, 700, 1000]");
+
+            var accountRanking = new AccountRanking {Account = fakeAccount.Object};
 
             var actualRanking = accountRanking.CalculateRanking();
 
